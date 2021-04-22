@@ -6,14 +6,11 @@ import TheirMessage from './TheirMessage';
 
 
 const ChatFeed = (props) => {
-    console.log(props);
-
     const { chats, activeChat, userName, messages } = props;
 
-    console.log('chat' + chat);
+   const chat = chats && chats[activeChat];
     const renderMessages = () => {
         const keys = Object.keys(messages);
-        console.log(keys);
         return keys.map((key,index) => {
             const message = messages[key];
             const lastMessagekey = index;
@@ -37,12 +34,13 @@ const ChatFeed = (props) => {
         })
       
     }
+    if (!chat) return <div />;
     return (
         <div className="chat-feed">
             <div className="chat-title-container">
                 <div className="chat-title">{ chat?.title } </div>
                 <div className="chat-subtitle">
-                        {chat.people.map((person) => `$(person.person.username)`)}
+                        {chat.people.map((person) => `${person.person.username}`)}
                 </div>
             </div>
             { renderMessages() }
